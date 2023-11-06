@@ -1,1 +1,1 @@
-(()=>{"use strict";alert("hi")})();
+(()=>{"use strict";!function(){const e=document.querySelector("#content");console.log(document.baseURI);const t=document.createElement("div");t.classList.add("headerArea");const n=document.createElement("h1");n.textContent="Shrimp Bar",t.appendChild(n),e.appendChild(t)}()})();
