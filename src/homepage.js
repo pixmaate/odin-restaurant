@@ -2,13 +2,23 @@ export {createHomePage};
 
 
 function createHomePage() {
+    const mainContentArea = document.querySelector('#content');
+
 
     function drawPage() {
-        addHeader();
+        const headerElement = createHeader().addHeader(mainContentArea);
     };
 
-    function addHeader() {
-        const mainContentArea = document.querySelector('#content');
+    
+
+
+
+    return {drawPage}
+};
+
+function createHeader() {
+
+    function addHeader(element) {
         const headerArea = document.createElement('div');
 
         headerArea.classList.add('headerArea');
@@ -21,12 +31,11 @@ function createHomePage() {
 
 
         //append header to Content
-        mainContentArea.appendChild(headerArea);
+        element.appendChild(headerArea);
 
 
     };
 
+    return {addHeader}
 
-
-    return {drawPage}
-}
+};
