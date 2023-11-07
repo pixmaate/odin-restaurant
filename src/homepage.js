@@ -3,7 +3,7 @@ export {createHomePage};
 
 function createHomePage() {
     const mainContentArea = document.querySelector('#content');
-    mainContentArea.style.cssText = 'display: flex;flex-direction: column;justify-content: center;align-items:center';
+    mainContentArea.style.cssText = 'display: flex;flex-direction: column;justify-content: center;align-items:center;min-height: 100vh';
 
     const testElement = document.createElement('p');
     testElement.textContent = 'TEST'
@@ -36,6 +36,7 @@ function createHeader() {
         const headerArea = document.createElement('div');
 
         headerArea.classList.add('headerArea');
+        headerArea.style.cssText = 'display: flex;flex-direction:row;justify-content:space-between;align-items:center;width:80%;'
 
         //title Text
         const titleText = document.createElement('h1');
@@ -81,6 +82,7 @@ function createMainContent() {
     function addContent(element) {
         const mainContentWrapper = document.createElement('div');
         mainContentWrapper.id = 'mainContent';
+        mainContentWrapper.style.cssText = 'display:grid;grid-template:1fr / 1fr 1fr;width:80%;gap:5%;'
 
         // left content area ////////////////////
         const mainContentBoxLeft = document.createElement('div');
@@ -143,6 +145,7 @@ function createInfoArea() {
 
     function addInfo(element) {
         const mainInfoArea = document.createElement('div');
+        mainInfoArea.style.cssText = 'display:grid;grid-template: 1fr / 1fr 1fr 1fr;width: 80%;gap: 20px;'
 
 
         /// left info div ////////////
@@ -202,10 +205,14 @@ function createInfoArea() {
     return{addInfo}
 };
 
+
+///// FOOTER
+
 function createFooter() {
 
     function makeFooter(element) {
         const mainFooterArea = document.createElement('div');
+        mainFooterArea.style.cssText = 'margin-top:auto;'
         const mainFooterText = document.createElement('p');
         const currentYear = new Date().getFullYear();
         mainFooterText.textContent = `Copyright @${currentYear} Shrimp Bar`;
