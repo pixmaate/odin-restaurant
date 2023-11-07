@@ -1,19 +1,22 @@
 export {createHomePage};
+import homeImage from './shrimpnoodles.jpg';
+import bulletIcon from './shrimp.png';
 
 
-function createHomePage() {
+
+function createHomePage(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor) {
     const mainContentArea = document.querySelector('#content');
-    mainContentArea.style.cssText = 'display: flex;flex-direction: column;justify-content: center;align-items:center;min-height: 100vh';
+    mainContentArea.style.cssText = `display: flex;flex-direction: column;justify-content: center;align-items:center;min-height: 100vh;background-color:${secondaryColorShade}`;
 
     const testElement = document.createElement('p');
     testElement.textContent = 'TEST'
 
 
     function drawPage() {
-        const headerElement = createHeader().addHeader(mainContentArea);
-        const mainContentElement = createMainContent().addContent(mainContentArea);
-        const infoContentElement = createInfoArea().addInfo(mainContentArea);
-        const footerElement = createFooter().makeFooter(mainContentArea);
+        const headerElement = createHeader(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor).addHeader(mainContentArea);
+        const mainContentElement = createMainContent(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor).addContent(mainContentArea);
+        const infoContentElement = createInfoArea(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor).addInfo(mainContentArea);
+        const footerElement = createFooter(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor).makeFooter(mainContentArea);
         
     };
 
@@ -30,17 +33,20 @@ function createHomePage() {
     return {drawPage, clearMainContent}
 };
 
-function createHeader() {
+function createHeader(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor) {
 
     function addHeader(element) {
         const headerArea = document.createElement('div');
 
         headerArea.classList.add('headerArea');
-        headerArea.style.cssText = 'display: flex;flex-direction:row;justify-content:space-between;align-items:center;width:80%;'
+        headerArea.style.cssText = `display: flex;flex-direction:row;justify-content:space-between;align-items:center;
+                                    width:100%;background-color:${mainColor};box-shadow: 0 4px 2px -2px grey;padding:0px 20px 0px 20px;
+                                    box-sizing:border-box;`
 
         //title Text
         const titleText = document.createElement('h1');
         titleText.textContent = 'Shrimp Bar';
+        titleText.style.cssText = `color:darkblue;`;
         headerArea.appendChild(titleText);
 
         //headermenu
@@ -48,13 +54,22 @@ function createHeader() {
         buttonWrapper.classList.add('buttonWrapper');
         const homeButton = document.createElement('button');
         homeButton.id = 'home';
-        homeButton.textContent = 'Home'
+        homeButton.textContent = 'Home';
+        homeButton.style.cssText = `background-color:#ffffff00;border-style:none;border-right:solid;border-color:${secondaryColorBright};
+                                    font-size: 16px;color:darkblue;padding: 10px;
+                                    `;
         const foodsButton = document.createElement('button');
         foodsButton.id = 'menu';
-        foodsButton.textContent = 'Our Menu'
+        foodsButton.textContent = 'Our Menu';
+        foodsButton.style.cssText = `background-color:#ffffff00;border-style:none;border-right:solid;border-left:solid;border-color:${secondaryColorBright};
+                                    font-size: 16px;color:darkblue;padding: 10px;
+                                    `;
         const aboutButton = document.createElement('button');
         aboutButton.id = 'about';
-        aboutButton.textContent = 'About Us'
+        aboutButton.textContent = 'About Us';
+        aboutButton.style.cssText = `background-color:#ffffff00;border-style:none;border-left:solid;border-color:${secondaryColorBright};
+                                    font-size: 16px;color:darkblue;padding: 10px;
+                                    `;
 
         buttonWrapper.appendChild(homeButton);
         buttonWrapper.appendChild(foodsButton);
@@ -77,18 +92,25 @@ function createHeader() {
 
 //// MAIN CONTENT /////////////
 
-function createMainContent() {
+function createMainContent(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor) {
 
     function addContent(element) {
         const mainContentWrapper = document.createElement('div');
         mainContentWrapper.id = 'mainContent';
-        mainContentWrapper.style.cssText = 'display:grid;grid-template:1fr / 1fr 1fr;width:80%;gap:5%;'
+        mainContentWrapper.style.cssText = `display:grid;grid-template:1fr / 1fr 1fr;
+                                            width:80%;gap:5%;background-color:${secondaryColor};
+                                            border-style:double;border-color:${accentColor};border-radius: 10px;box-shadow: 5px 5px 5px grey;
+                                            margin: 15px;padding:5%;`;
 
         // left content area ////////////////////
         const mainContentBoxLeft = document.createElement('div');
-
+        mainContentBoxLeft.style.cssText = `background-color:${mainColorShade}CC;padding: 10px; display:flex;flex-direction:column;
+                                            justify-content: center; align-items: center;border-radius: 5%;gap: 25px;
+                                            `
         const mainContentImageDiv = document.createElement('div');
         const mainContentImage = document.createElement('img');
+        mainContentImage.src = homeImage;
+        mainContentImage.style.cssText = `width:250px;heigth:250px;border-radius: 50%;`
         mainContentImageDiv.appendChild(mainContentImage);
         mainContentImageDiv.classList.add('mainImage');
         mainContentBoxLeft.appendChild(mainContentImageDiv);
@@ -96,6 +118,8 @@ function createMainContent() {
         const mainContentTextDiv = document.createElement('div');
         const mainContentText = document.createElement('p');
         mainContentText.textContent = 'Welcome to Shrimp Bar. The Definitive Shrimp Restaurant of Krumpotia.';
+        mainContentText.style.cssText = `color: darkblue; text-align:center; font-weight:700;font-size:18px;
+                                        `
         mainContentTextDiv.appendChild(mainContentText);
         mainContentTextDiv.classList.add('mainText');
         mainContentBoxLeft.appendChild(mainContentTextDiv);
@@ -106,10 +130,16 @@ function createMainContent() {
 
         // right content area ///////////////6
         const mainContentBoxRight = document.createElement('div');
+        mainContentBoxRight.style.cssText = `background-color:${mainColorShade}CC;padding: 10px; display:flex;flex-direction:column;
+                                            justify-content: center; align-items: center;border-radius: 5%;gap: 25px;
+                                            `;
+
 
         const mainAboutTextDiv = document.createElement('div');
+        mainAboutTextDiv.style.cssText = `color:darkblue;font-size:18px;padding:10px`
         const mainAboutText = document.createElement('p');
         mainAboutText.textContent = 'What sets us apart?';
+        mainAboutText.style.cssText = `font-weight:700`;
         mainAboutTextDiv.appendChild(mainAboutText);
         
 
@@ -118,6 +148,7 @@ function createMainContent() {
         for (let i=0;i<listElements.length;i++) {
             const listElement = document.createElement('li');
             listElement.textContent = listElements[i];
+            listElement.style.cssText = `margin-top: 20px;list-style: url(${bulletIcon});`;
             mainAboutTextList.appendChild(listElement);
         };
         mainAboutTextDiv.appendChild(mainAboutTextList);
@@ -141,15 +172,20 @@ function createMainContent() {
 
 //// INFO AREA FACTORY ///////////////////////////
 
-function createInfoArea() {
+function createInfoArea(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor) {
 
     function addInfo(element) {
         const mainInfoArea = document.createElement('div');
-        mainInfoArea.style.cssText = 'display:grid;grid-template: 1fr / 1fr 1fr 1fr;width: 80%;gap: 20px;'
+        mainInfoArea.style.cssText = `display:grid;grid-template: 1fr / 1fr 1fr 1fr;width: 100%;gap: 20px;
+                                    background-color:${secondaryColor};box-sizing:border-box;padding: 10px 10% 10px 10%;
+                                    border-top: double;border-color:${accentColor};gap: 20px;color:darkblue;font-size:16px;
+                                    `
+
 
 
         /// left info div ////////////
         const leftInfoDiv = document.createElement('div');
+        leftInfoDiv.style.cssText = `display: flex;flex-direction:column;justify-content: center;align-items:center`;
         const leftInfoAddressHeader = document.createElement('p');
         leftInfoAddressHeader.textContent = 'You can find us at: ';
         leftInfoDiv.appendChild(leftInfoAddressHeader);
@@ -182,6 +218,7 @@ function createInfoArea() {
 
         /// Right info div ///////////////
         const rightInfoDiv = document.createElement('div');
+        rightInfoDiv.style.cssText = `display: flex;flex-direction:column;justify-content: center;align-items:center;`;
         const rightInfoContent = document.createElement('p');
         rightInfoContent.textContent = 'We are happy to announce that from 1st of July till the end of September our outdoor seating area is open, with excellent views of the Grand City of Krumpotia';
         const rightInfoContentTwo = document.createElement('p');
@@ -208,14 +245,14 @@ function createInfoArea() {
 
 ///// FOOTER
 
-function createFooter() {
+function createFooter(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor) {
 
     function makeFooter(element) {
         const mainFooterArea = document.createElement('div');
-        mainFooterArea.style.cssText = 'margin-top:auto;'
+        mainFooterArea.style.cssText = `margin-top:auto;background-color:${mainColor};width:100%;`
         const mainFooterText = document.createElement('p');
         const currentYear = new Date().getFullYear();
-        mainFooterText.textContent = `Copyright @${currentYear} Shrimp Bar`;
+        mainFooterText.textContent = `Copyright @${currentYear} Shrimp Bar -|- Shrimp icons created by Aficons studio - Flaticon`;
         mainFooterArea.appendChild(mainFooterText);
 
         element.appendChild(mainFooterArea);
