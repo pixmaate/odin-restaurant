@@ -3,6 +3,7 @@ export {createHomePage};
 
 function createHomePage() {
     const mainContentArea = document.querySelector('#content');
+    mainContentArea.style.cssText = 'display: flex;flex-direction: column;justify-content: center;align-items:center';
 
     const testElement = document.createElement('p');
     testElement.textContent = 'TEST'
@@ -10,9 +11,9 @@ function createHomePage() {
 
     function drawPage() {
         const headerElement = createHeader().addHeader(mainContentArea);
-        const mainContentElement = createMainContent().addContent(headerElement);
-        const infoContentElement = createInfoArea().addInfo(mainContentElement);
-        const footerElement = createFooter().makeFooter(infoContentElement);
+        const mainContentElement = createMainContent().addContent(mainContentArea);
+        const infoContentElement = createInfoArea().addInfo(mainContentArea);
+        const footerElement = createFooter().makeFooter(mainContentArea);
         
     };
 
@@ -125,7 +126,7 @@ function createMainContent() {
 
 
 
-        element.after(mainContentWrapper);
+        element.appendChild(mainContentWrapper);
         return(mainContentWrapper);
 
 
@@ -192,7 +193,7 @@ function createInfoArea() {
 
 
 
-        element.after(mainInfoArea);
+        element.appendChild(mainInfoArea);
         return(mainInfoArea);
 
     };
@@ -210,7 +211,7 @@ function createFooter() {
         mainFooterText.textContent = `Copyright @${currentYear} Shrimp Bar`;
         mainFooterArea.appendChild(mainFooterText);
 
-        element.after(mainFooterArea);
+        element.appendChild(mainFooterArea);
         return(mainFooterArea);
     };
 
