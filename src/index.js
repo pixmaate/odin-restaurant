@@ -1,4 +1,5 @@
 import { createHomePage } from "./homepage";
+import { createMenuPage } from "./menupage";
 
 
 const mainColor = '#4DDAFF';
@@ -10,6 +11,7 @@ const accentColor = '#F9F871';
 
 
 const homePage = createHomePage(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor);
+const menuPage = createMenuPage(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor);
 
 function buttonSelector() {
     const homeBTN = document.querySelector('#home');
@@ -18,10 +20,17 @@ function buttonSelector() {
 
     homeBTN.addEventListener('click', (event)=>{
         homePage.clearMainContent();
+        menuPage.clearMenuContent();
         homePage.drawPage();
     });
 
     menuBTN.addEventListener('click', (event) =>{
+        homePage.clearMainContent();
+        menuPage.clearMenuContent();
+        menuPage.drawPage();
+    });
+
+    aboutBTN.addEventListener('click', (event) =>{
         homePage.clearMainContent();
     });
 
