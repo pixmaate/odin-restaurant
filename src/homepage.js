@@ -13,16 +13,45 @@ function createHomePage(mainColor,mainColorShade,secondaryColor,secondaryColorSh
 
 
     function drawPage() {
-        const headerElement = createHeader(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor).addHeader(mainContentArea);
-        const mainContentElement = createMainContent(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor).addContent(mainContentArea);
-        const infoContentElement = createInfoArea(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor).addInfo(mainContentArea);
-        const footerElement = createFooter(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor).makeFooter(mainContentArea);
+        const isHeader = document.querySelector('#header');
+        const isFooter = document.querySelector('#footer');
+        if (isHeader) {
+
+        }
+        else {
+            const headerElement = createHeader(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor).addHeader(mainContentArea);
+
+        };
+        const headerElement = document.querySelector('#header');
+        
+        const mainContentElement = createMainContent(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor).addContent(headerElement);
+        const infoContentElement = createInfoArea(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor).addInfo(mainContentElement);
+        if (isFooter) {
+
+        }
+        else {
+            const footerElement = createFooter(mainColor,mainColorShade,secondaryColor,secondaryColorShade,secondaryColorBright,accentColor).makeFooter(mainContentArea);
+
+        };
         
     };
 
     function clearMainContent() {
         const mainContentElement = document.querySelector('#mainContent');
-        mainContentElement.innerHTML = '';
+        if (mainContentElement) {
+            mainContentElement.innerHTML = '';
+            mainContentElement.style.cssText = '';
+            mainContentElement.remove();
+        };
+        
+
+        const infoContentElement = document.querySelector('#infoContent');
+        if (infoContentElement) {
+            infoContentElement.innerHTML = '';
+            infoContentElement.style.cssText = '';
+            infoContentElement.remove();
+        };
+       
     };
 
 
@@ -37,7 +66,7 @@ function createHeader(mainColor,mainColorShade,secondaryColor,secondaryColorShad
 
     function addHeader(element) {
         const headerArea = document.createElement('div');
-
+        headerArea.id = 'header';
         headerArea.classList.add('headerArea');
         headerArea.style.cssText = `display: flex;flex-direction:row;justify-content:space-between;align-items:center;
                                     width:100%;background-color:${mainColor};box-shadow: 0 4px 2px -2px grey;padding:0px 20px 0px 20px;
@@ -58,18 +87,55 @@ function createHeader(mainColor,mainColorShade,secondaryColor,secondaryColorShad
         homeButton.style.cssText = `background-color:#ffffff00;border-style:none;border-right:solid;border-color:${secondaryColorBright};
                                     font-size: 16px;color:darkblue;padding: 10px;
                                     `;
+        homeButton.addEventListener('mouseenter', (event) => {
+            event.target.style.cssText = `background-color:#ffffff80;border-style:none;border-right:solid;border-color:${secondaryColorBright};
+            font-size: 16px;color:darkblue;padding: 10px;
+            `;
+        });
+
+        homeButton.addEventListener('mouseleave', (event) => {
+            event.target.style.cssText = `background-color:#ffffff00;border-style:none;border-right:solid;border-color:${secondaryColorBright};
+            font-size: 16px;color:darkblue;padding: 10px;
+            `;
+        });
+
         const foodsButton = document.createElement('button');
         foodsButton.id = 'menu';
         foodsButton.textContent = 'Our Menu';
         foodsButton.style.cssText = `background-color:#ffffff00;border-style:none;border-right:solid;border-left:solid;border-color:${secondaryColorBright};
                                     font-size: 16px;color:darkblue;padding: 10px;
                                     `;
+        foodsButton.addEventListener('mouseenter', (event) =>{
+            event.target.style.cssText = `background-color:#ffffff80;border-style:none;border-right:solid;border-left:solid;border-color:${secondaryColorBright};
+            font-size: 16px;color:darkblue;padding: 10px;
+            `;
+        });
+
+        foodsButton.addEventListener('mouseleave', (event) =>{
+            event.target.style.cssText = `background-color:#ffffff00;border-style:none;border-right:solid;border-left:solid;border-color:${secondaryColorBright};
+            font-size: 16px;color:darkblue;padding: 10px;
+            `;
+        });
+
+
+
         const aboutButton = document.createElement('button');
         aboutButton.id = 'about';
         aboutButton.textContent = 'About Us';
         aboutButton.style.cssText = `background-color:#ffffff00;border-style:none;border-left:solid;border-color:${secondaryColorBright};
                                     font-size: 16px;color:darkblue;padding: 10px;
                                     `;
+
+        aboutButton.addEventListener('mouseenter', (event) =>{
+            event.target.style.cssText = `background-color:#ffffff80;border-style:none;border-left:solid;border-color:${secondaryColorBright};
+            font-size: 16px;color:darkblue;padding: 10px;
+            `;
+        });
+        aboutButton.addEventListener('mouseleave', (event) =>{
+            event.target.style.cssText = `background-color:#ffffff00;border-style:none;border-left:solid;border-color:${secondaryColorBright};
+            font-size: 16px;color:darkblue;padding: 10px;
+            `;
+        });
 
         buttonWrapper.appendChild(homeButton);
         buttonWrapper.appendChild(foodsButton);
@@ -159,7 +225,7 @@ function createMainContent(mainColor,mainColorShade,secondaryColor,secondaryColo
 
 
 
-        element.appendChild(mainContentWrapper);
+        element.after(mainContentWrapper);
         return(mainContentWrapper);
 
 
@@ -176,6 +242,7 @@ function createInfoArea(mainColor,mainColorShade,secondaryColor,secondaryColorSh
 
     function addInfo(element) {
         const mainInfoArea = document.createElement('div');
+        mainInfoArea.id = 'infoContent';
         mainInfoArea.style.cssText = `display:grid;grid-template: 1fr / 1fr 1fr 1fr;width: 100%;gap: 20px;
                                     background-color:${secondaryColor};box-sizing:border-box;padding: 10px 10% 10px 10%;
                                     border-top: double;border-color:${accentColor};gap: 20px;color:darkblue;font-size:16px;
@@ -233,7 +300,7 @@ function createInfoArea(mainColor,mainColorShade,secondaryColor,secondaryColorSh
 
 
 
-        element.appendChild(mainInfoArea);
+        element.after(mainInfoArea);
         return(mainInfoArea);
 
     };
@@ -249,7 +316,8 @@ function createFooter(mainColor,mainColorShade,secondaryColor,secondaryColorShad
 
     function makeFooter(element) {
         const mainFooterArea = document.createElement('div');
-        mainFooterArea.style.cssText = `margin-top:auto;background-color:${mainColor};width:100%;`
+        mainFooterArea.id = 'footer';
+        mainFooterArea.style.cssText = `margin-top:auto;background-color:${mainColor};width:100%;display:flex;flex-direction:row;justify-content:center;align-items:center`
         const mainFooterText = document.createElement('p');
         const currentYear = new Date().getFullYear();
         mainFooterText.textContent = `Copyright @${currentYear} Shrimp Bar -|- Shrimp icons created by Aficons studio - Flaticon`;
