@@ -11,14 +11,22 @@ function createHomePage() {
     function drawPage() {
         const headerElement = createHeader().addHeader(mainContentArea);
         const mainContentElement = createMainContent().addContent(headerElement);
+        const infoContentElement = createInfoArea().addInfo(mainContentElement);
+        const footerElement = createFooter().makeFooter(infoContentElement);
         
     };
+
+    function clearMainContent() {
+        const mainContentElement = document.querySelector('#mainContent');
+        mainContentElement.innerHTML = '';
+    };
+
 
     
 
 
 
-    return {drawPage}
+    return {drawPage, clearMainContent}
 };
 
 function createHeader() {
@@ -37,10 +45,13 @@ function createHeader() {
         const buttonWrapper = document.createElement('div');
         buttonWrapper.classList.add('buttonWrapper');
         const homeButton = document.createElement('button');
+        homeButton.id = 'home';
         homeButton.textContent = 'Home'
         const foodsButton = document.createElement('button');
+        foodsButton.id = 'menu';
         foodsButton.textContent = 'Our Menu'
         const aboutButton = document.createElement('button');
+        aboutButton.id = 'about';
         aboutButton.textContent = 'About Us'
 
         buttonWrapper.appendChild(homeButton);
@@ -62,11 +73,13 @@ function createHeader() {
 
 };
 
+//// MAIN CONTENT /////////////
+
 function createMainContent() {
 
     function addContent(element) {
         const mainContentWrapper = document.createElement('div');
-
+        mainContentWrapper.id = 'mainContent';
 
         // left content area ////////////////////
         const mainContentBoxLeft = document.createElement('div');
@@ -113,17 +126,74 @@ function createMainContent() {
 
 
         element.after(mainContentWrapper);
+        return(mainContentWrapper);
 
 
-    }
+    };
 
 
     return {addContent}
 };
 
+
+//// INFO AREA FACTORY ///////////////////////////
+
 function createInfoArea() {
 
     function addInfo(element) {
+        const mainInfoArea = document.createElement('div');
+
+
+        /// left info div ////////////
+        const leftInfoDiv = document.createElement('div');
+        const leftInfoAddressHeader = document.createElement('p');
+        leftInfoAddressHeader.textContent = 'You can find us at: ';
+        leftInfoDiv.appendChild(leftInfoAddressHeader);
+        const leftInfoAddress = document.createElement('p');
+        leftInfoAddress.textContent = '124th Main Cikrotia Ave, Grand City of Krumpotia, The Republic of Krumpotia';
+        leftInfoDiv.appendChild(leftInfoAddress);
+
+        mainInfoArea.appendChild(leftInfoDiv);
+        
+
+
+        /// MID Info DIV ///////////////
+        const midInfoDiv = document.createElement('div');
+        const openingTimeText = document.createElement('p');
+        openingTimeText.textContent = 'Hours: '
+        midInfoDiv.appendChild(openingTimeText);
+
+        const openingTimeList = document.createElement('ul');
+        let openingHours = {Monday:[9,22], Tuesday:[9,22], Wednesday:[9,22], Thursday:[12,24], Friday:[12,'02'], Saturday:[12,'02'], Sunday:['Closed', 'Closed']};
+        for (let key in openingHours) {
+            const openingTimeContent = document.createElement('li');
+            openingTimeContent.textContent = `${key}: ${openingHours[key][0]} - ${openingHours[key][1]}`;
+            openingTimeList.appendChild(openingTimeContent);
+        };
+        midInfoDiv.appendChild(openingTimeList);
+
+
+        mainInfoArea.appendChild(midInfoDiv);
+
+
+        /// Right info div ///////////////
+        const rightInfoDiv = document.createElement('div');
+        const rightInfoContent = document.createElement('p');
+        rightInfoContent.textContent = 'We are happy to announce that from 1st of July till the end of September our outdoor seating area is open, with excellent views of the Grand City of Krumpotia';
+        const rightInfoContentTwo = document.createElement('p');
+        rightInfoContentTwo.textContent = 'Every 2nd Friday we are hosting a themed Salmon and Friends even, which puts Salmon and Salmon based meals in focus.'
+        rightInfoDiv.appendChild(rightInfoContent);
+        rightInfoDiv.appendChild(rightInfoContentTwo);
+
+
+
+
+        mainInfoArea.appendChild(rightInfoDiv);
+
+
+
+        element.after(mainInfoArea);
+        return(mainInfoArea);
 
     };
 
@@ -134,7 +204,14 @@ function createInfoArea() {
 function createFooter() {
 
     function makeFooter(element) {
+        const mainFooterArea = document.createElement('div');
+        const mainFooterText = document.createElement('p');
+        const currentYear = new Date().getFullYear();
+        mainFooterText.textContent = `Copyright @${currentYear} Shrimp Bar`;
+        mainFooterArea.appendChild(mainFooterText);
 
+        element.after(mainFooterArea);
+        return(mainFooterArea);
     };
 
 
